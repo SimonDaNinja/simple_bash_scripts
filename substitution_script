@@ -1,2 +1,33 @@
 #! /bin/bash
+
+# $1: name of file with substitution table
+# $2: name of file to be edited
+
+# format of substitution table should be two space-separated columns where
+# entries in the left column will be replaced by entries in the right column
+# in the file to be edited
+
+# E.g. If the following is the contents of the file $1:
+
+# "
+# foo1 bar1
+# foo2 bar2
+# foo3 bar3
+# foo4 bar4
+# "
+
+# and the following is the contetns of the file $2:
+
+# "
+# there once was a foo1 called foo2 who very much loved a foo3 called foo4,
+# but foo4 didn't love foo2 back
+# "
+
+# then after running the script, the file $2 will instead contain:
+
+# "
+# there once was a bar1 called bar2 who very much loved a bar3 called bar4,
+# but bar4 didn't love bar2 back
+# "
+
 sed -i "$(awk '{printf "s/%s/%s/g; ", $1, $2;}' $1)" $2
